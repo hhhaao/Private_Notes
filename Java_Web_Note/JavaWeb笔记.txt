@@ -1,0 +1,56 @@
+======================关于Tomcat==============================
+
+1.一般情况下，一个Tomcat就一个端口，就一个项目的网站
+
+2.webapps就是放应用程序的地方，端口公用，但可以新建文件夹/hao，之后访问路径要加/hao
+
+3.静态页面可以直接访问/hao可以直接访问，想根访问放到为ROOT文件夹
+
+
+=====================建一个Servlet应用程序===============================
+
+1.webapps建一个目录/hello
+
+2.新建目录/hello/WEB-INF
+
+3.新建目录/hello/WEB-INF/classes里放java的编文件class，
+
+4.HelloServlet包的路径就是目录的路径，如放在com.hao.test包下，classes目录必须是/classes/com/hao/test，其他bean呀等费servlet的class文件也一样处理
+
+5.HelloServlet实现HttpServlet抽象类，HttpServlet来自\Tomcat\lib\servlet-api.jar包（Eclipse记得引入依赖）
+
+6.然后就是重写doPost或doGet方法，记得注释掉super.doXXXX，否则会报错
+
+7.新建/hello/WEB-INF/web.xml文件
+
+8.在web.xml配置servlet和servlet-mapping节点
+
+9.由于\Tomcat\lib已经有依赖包\servlet-api.jar，所以/hello/WEB-INF/lib就不用放了
+
+10.重启Tomcate，http://127.0.0.1:8080/hello/配置的Servlet访问路径，OK
+
+
+========================================JSP=====================================
+JSP比Servlet更简单，新建一个文件夹webapps/myweb/
+
+直接建一个webapps/myweb/good.jsp文件
+
+然后http://127.0.0.1:8080/my/good.jsp访问，OK
+
+啥也不需要/WEB-INF/文件夹，推断出web.xml和classes补是JavaWeb必须的
+
+
+在C:\JTomcat90\work\Catalina\localhost\my\org\apache\jsp会有生产的编译缓存文件good_jsp.class和good_jsp.java
+
+===============================PS========================
+
+/hello/WEB-INF 	必须
+/hello/WEB-INF/web.xml 		Servlet必须
+/hello/WEB-INF/classes		Servlet必须
+/hello/WEB-INF/lib	可选
+
+
+/hello/META-INF	可选文件夹，信息描述文件夹，主要context.xml一些文件，好像用处不大
+
+
+

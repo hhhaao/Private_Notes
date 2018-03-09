@@ -1,1 +1,9 @@
 flyway  数据库脚本
+
+
+minio 分布式存储方案
+
+rabbitMQ  消息队列
+
+
+Redis 分布式缓存

@@ -1,0 +1,38 @@
+单点登录（Single Sign On），简称为 SSO
+单点登录原理与简单实现
+https://www.cnblogs.com/ywlaker/p/6113927.html
+
+magnet:?xt=urn:btih:3ee7715b3b8a1bf59e4350cd8f83f9d6fc1bf79c
+
+servlet/filter/listener/interceptor
+
+
+-------------------------------------------------
+Listener对应观察者模式
+创建修改删除Session Request Context触发响应事件
+
+Listener 主要用于对 Session、request、context 进行监控。servlet2.5 规范中共有 8 种Listener
+
+不同功能的Listener 需要实现不同的 Listener  接口，一个Listener也可以实现多个接口，这样就可以多种功能的监听器一起工作
+
+8种监听器可以分为三类：
+1）监听 Session、request、context 的创建于销毁，分别为  
+HttpSessionListener、ServletContextListener、ServletRequestListener
+
+2）监听对象属性变化，分别为：
+HttpSessionAttributeLister、ServletContextAttributeListener、ServletRequestAttributeListener 
+
+3）监听Session 内的对象，分别为
+HttpSessionBindingListener 和 HttpSessionActivationListener
+与上面六类不同，这两类 Listener 监听的是Session 内的对象，而非 Session 本身，不需要在 web.xml中配置
+
+
+2、实现web.xml的Listener配置。
+1）<listener>标签与 <listener-class>
+2）<listener>一般配置在 <servlet>便签的前面。
+
+
+（二）显示在线人数：会需要3个监听器。
+1、ContextListener：获取服务启动的时间等。
+2、RequestListener：获取客户端的IP、访问地址，访问次数等。
+3、SessionListener：需要监听 Session 的创建与属性变化。
