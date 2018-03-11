@@ -1,0 +1,18 @@
+正式项目
+<groupId>com.liuhao.projectname</groupId>
+<artifactId>project-name-part</artifactId>
+
+测试项目
+<groupId>com.liuhao.test</groupId>
+<artifactId>project-name-part-test</artifactId>
+
+
+groupId:代表此项目隶属的组织或公司. 后部分代表项目的名称. 大项目子模块
+artifactId:实际项目名称-模块名称
+
+全部小写
+
+com.公司.部门/平台.项目
+
+
+artifactId的值会作为项目根目录的名字
