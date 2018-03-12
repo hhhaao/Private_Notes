@@ -1,0 +1,143 @@
+https://www.cnblogs.com/duanxz/p/7493276.html
+spring4.0之二：@Configuration的使用
+
+@Configuration相当于一个<beans> spring.bean.xml文件
+@Configuration 标记类使用，一般搭配@Bean，方法的返回类型就是一个<bean>，嵌套的@Configuration类必须是静态static
+@Bean
+
+
+@ComponentScan 扫描组件加入Spring容器, 一般搭配@Component @Service @Controller @Repository ..一起使用
+@Component
+@ComponentScan等价于<context:component-scan base-package="com.dxz.demo"/>
+
+
+@ImportResource导入spring bean xml文件，加入SPRING容器
+@Import标记一个普通类，加入SPRING容器
+
+上面的注解可组合使用
+
+
+
+@EnableAutoConfiguration  Springboot不自动化配置，因为引入一些starter，如果自动化配置，但配置文件又确认配置启动会报错
+
+
+
+ApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class);
+或
+ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+等价
+ApplicationContext ctx = new AnnotationConfigApplicationContext();
+ctx.register(AppContext.class)
+
+
+TestBean tb = (TestBean) context.getBean("testBean");   tb.sayHello();
+
+
+@Configuration+@Bean会被
+AnnotationConfigApplicationContext
+AnnotationConfigWebApplicationContext
+类进行扫描，初始化Spring容器
+
+
+
+Spring Bean 生命周期控制 @PostConstruct 和 @PreDestroy 
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+Spring Web mvc启动	
+
+Spring(service,dao,bean) 是父类，SpringMvc(controller)是子类，子类可以访问到父类，父类访问不了子类
+
+您通常要利用 XmlWebApplicationContext 上下文来配置 Spring Web 应用程序，即在 Web 部署描述符文件 web.xml 中指定外部 XML 上下文文件的路径
+
+XMLWebApplicationContext 是 Web 应用程序使用的默认上下文类!!!!!!! web.xml不需要制定，但要制定applicationContext.xml 其实是一个<beans>
+
+web.xml 中指向将由 ContextLoaderListener 监听器类载入的外部 XML 上下文文件的元素
+
+网站的ContextLoaderListener相当于是main方法，需要制定一个spring.bean.xml文件，使用XmlWebApplicationContext读取xml，启动spring
+
+一般是applicationContext.xml
+
+--------------------------------------------------------------------------
+
+org.springframework.web.context.ContextLoaderListener 启动Spring
+
+org.springframework.web.servlet.DispatcherServlet 启动 Spring mvc
+
+---------------------------------------------------------------------------
+
+<web-app>
+
+	<context-param>
+        	<param-name>contextConfigLocation</param-name>
+        	<param-value>/WEB-INF/applicationContext.xml</param-value>
+    	</context-param>
+	默认读取applicationContext.xml，如果不是就要声明
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>spring-mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvccc-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>spring-mvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+您要将 web.xml 中的上述代码更改为使用 AnnotationConfigWebApplicationContext 类
+XmlWebApplicationContext 是 Spring 为 Web 应用程序使用的默认上下文实现，因此您永远不必在您的web.xml 文件中显式指定这个上下文类
+您将使用基于 Java 的配置，因此在配置 Web 应用程序时，需要在web.xml 文件中指定 AnnotationConfigApplicationContext 类
+
+<web-app>
+
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext	不通过bean.xml!!!!!
+        </param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>demo.AppContext</param-value>	通过javaconfig!!!!
+    </context-param>
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <servlet>
+    <servlet-name>sampleServlet</servlet-name>
+    <servlet-class>
+        org.springframework.web.servlet.DispatcherServlet
+    </servlet-class>
+    <init-param>
+        <param-name>contextClass</param-name>
+        <param-value>
+            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
+    </init-param>
+    </servlet>
+</web-app>
+
+
+
+
+
