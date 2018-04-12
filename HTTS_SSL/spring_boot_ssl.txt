@@ -1,0 +1,52 @@
+server.ssl.ciphers= # Supported SSL ciphers.
+server.ssl.client-auth= # Whether client authentication is wanted ("want") or needed ("need"). Requires a trust store.
+server.ssl.enabled= # Enable SSL support.
+server.ssl.enabled-protocols= # Enabled SSL protocols.
+server.ssl.key-alias= # Alias that identifies the key in the key store.
+server.ssl.key-password= # Password used to access the key in the key store.
+server.ssl.key-store= # Path to the key store that holds the SSL certificate (typically a jks file).
+server.ssl.key-store-password= # Password used to access the key store.
+server.ssl.key-store-provider= # Provider for the key store.
+server.ssl.key-store-type= # Type of the key store.
+server.ssl.protocol=TLS # SSL protocol to use.
+server.ssl.trust-store= # Trust store that holds SSL certificates.
+server.ssl.trust-store-password= # Password used to access the trust store.
+server.ssl.trust-store-provider= # Provider for the trust store.
+server.ssl.trust-store-type= # Type of the trust store.
+
+
+
+自签名证书
+
+key，jks, 秘钥文件==数字证书?
+
+trust store 可信赖公钥, 默认是C:\JRE180\lib\security\cacerts文件
+
+
+
+
+双向SSL，即Sever作为Client调用调用端时，使用的公钥
+
+truststoreFile:用来验证客户端证书的根证书，此例中就是服务器证书
+
+truststorePass:根证书密码
+
+TLS可以说是SSL的改进版。是由IETF对SSL 3.0进行了升级而出现的，定义在RFC 2246。实际上我们现在的HTTPS都是用的TLS协议
+
+双向SSL 相当于浏览器也部署一个秘钥证书p12，，这个秘钥证书，导出公钥证书cer，要实现导入到服务器的keystore秘钥库里；
+
+想浏览器，不提示安全，也一样，通过keystore导出cer, 再导入到浏览器，这样应该就不会提示了。
+
+http://www.hangge.com/blog/cache/detail_992.html
+
+
+您的名字与姓氏是什么：必须是TOMCAT部署主机的域名或者IP[如：hangge.com 或者 10.1.25.119]（就是你将来要在浏览器中输入的访问地址），否则浏览器会弹出警告窗口，提示用户证书与所在域不匹配。在本地做开发测试时，应填入“localhost”
+
+
+
+http://www.hangge.com/blog/cache/detail_992.html
+
+cer
+
+
+

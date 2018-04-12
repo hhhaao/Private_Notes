@@ -1,0 +1,55 @@
+Keystore = 秘钥 + 证书 + 公钥
+
+
+jks是JAVA的keytools证书工具支持的证书私钥格式
+
+pfx是微软支持的私钥格式
+
+cer是证书的公钥
+
+
+https://www.cnblogs.com/benwu/articles/4891758.html
+
+----------------------
+
+jks 即 keystore文件，包含秘钥（key）和证书
+
+
+keystore可以理解为秘钥库，keystore包含密码，用于不同的密码保护
+server.ssl.key-password= # Password used to access the key in the key store.
+server.ssl.key-store-password= # Password used to access the key store.
+
+
+keystore
+
+Keytool将密钥（key）和证书（certificates）存在一个称为keystore的文件中
+在keystore里，包含两种数据： 密钥实体（Key entity）——密钥（secret key）又或者是私钥和配对公钥（采用非对称加密）
+可信任的证书实体（trusted certificate entries）——只包含公钥
+
+cacerts证书文件(The cacerts Certificates File)
+
+该证书文件存在于java.home\jre\lib\security目录下，是Java系统的CA证书仓库
+
+双向SSL，部署在浏览器的秘钥，但这个要实现到出cer证书，再加入到服务器keystore.jks才行
+server.ssl.trust-store= # Trust store that holds SSL certificates.
+server.ssl.trust-store-password= # Password used to access the trust store.
+server.ssl.trust-store-provider= # Provider for the trust store.
+server.ssl.trust-store-type= # Type of the trust store.
+
+KeyStore用于服务器认证服务端，而TrustStore用于客户端认证服务器
+
+服务器向客户端提供的认证信息就是自身的证书和公钥，而这些信息，包括对应的私钥，服务器就是通过KeyStore来保存的
+
+当服务器提供的证书和公钥到了客户端，客户端就要生成一个TrustStore文件保存这些来自服务器证书和公钥
+保存你信任的来自他人的公钥和证书，应该使用TrustStore
+
+trustStore中保存的是一些可信任的证书，主要是java在代码中访问某个https的时候对被访问者进行认证的，以确保其实可信任的。trustStore可以看成一个放信任证书的一个store，存放的只包含公钥的数字证书，代表了可以信任的证书
+
+trust-store指的就是公钥，可以不指定
+
+注：生成证书时，CN要和服务器的域名相同，如果在本地测试，则使用localhost
+
+keytool -genkey -alias "tomcat" -keyalg "RSA" -keystore "d:\mykeystore " -dname "CN=localhost, OU=localhost, O=localhost, L=SH, ST=SH, C=CN"-keypass "changeit" -storepass "changeit"
+
+
+keystore.jks 也可以为 .keystore格式 ; server.crt也可以为 .cer格式
