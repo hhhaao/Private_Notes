@@ -1,0 +1,92 @@
+Docker 应用容器引擎，Go语音开发，基于Linux内核技术开发
+
+对应用进程进行封装隔离，并且独立于宿主机于其他进行，这种运行时封装的状态称为容器
+
+ps -ef 进程
+
+Docker，包括文件系统、网络互连、镜像管理等方面，简化容器管理
+
+Docker理念是将应用及依赖包打包到一个可移植的容器中，可发布到任意Linux发行版Docker引擎上；
+
+-------------------------
+
+docker --help	客服端
+
+
+Docker Client---->Docker Engine----->Image Repository
+
+Docker Client---->Docker Engine----->Containerd------> shim/run C
+
+ps -ef | grep docker
+
+---------------------------------
+
+Containerd是一个简单首付进程，使用runC管理容器，向Docker Engine提供接口
+
+Shim: 只负责管理一个容器
+
+runC: 是一个轻量级的工具，只用来运行容器
+
+
+yum install pstree	安装进程树
+
+
+
+docker rm -f $(docker ps -q -a)  删除容器
+
+
+docker run -d busybox ping baidu.com
+
+
+
+/usr/bin/dockerd
+----docker-containerd
+---------docker-containerd-shim
+---------------ping baidu.com
+
+====================================================
+
+-------Client---------
+
+docker build
+docker pull
+docker run
+
+
+-----Docker_Host------
+
+docker daemon
+Containers
+Images		本地镜像仓库
+
+------Registry---------
+远程镜像仓库
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
