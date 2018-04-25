@@ -1,0 +1,182 @@
+
+
+-i
+
+-t
+
+-d
+
+创建容器
+docker container run -itd --name cusconstainername imagename
+
+查看当前运行的容器
+docker ps 
+
+进入容器
+docker container attach cusconstainername
+或
+docker exec -it 'containerid/name' bash  直接退出不终止容器
+
+ps -ef
+
+ifconfig	查看分配IP
+
+网桥
+
+启动容器的时候可以指定DNS
+
+很可能退出终端，就推迟容器
+
+ctrl + P + Q
+
+
+/# mount
+查看文件系统挂载
+
+默认会从宿主机挂载三个文件, 重启会自动创建，修改不会生效
+/etc/resolv.conf
+/etc/hostname
+/etc/hosts
+
+
+查看文件
+cat /路径 
+
+
+docker container run -itd -p 8080:80 --name containername imagename
+
+容器的80--->宿主机的8080
+
+
+docker logs containername
+
+查看容器输出控制台
+
+ls /var/lib/docker/containers/
+有用id命名的目录
+***-json.log
+
+
+--restart=always 重启策略，一直重启
+
+-m 512m      限制容器最大内存
+--memory-swap 默认使用物理内存的2倍，运行交换到磁盘的内存量
+--memory-swappiness 容器使用swap分区交换的百分比0-100
+
+-cpus 1 限制CPU，一核
+-cpu-shares  1024   权重
+
+--oom-kill-disable 当主机内存不足时，杀掉容器的进程, 防止内存耗尽
+
+docker container stats containername 
+查看资源利用率
+
+
+============================================================
+
+docker container ls
+
+查看当前运行的容器
+
+
+docker container inspect containid
+查看容器的详细信息
+
+
+docker container attach containername
+将标准的输入输出附加到容器中，会阻塞，因为已运行前台进程
+
+docker top containername
+
+
+可以通过exec方式进入容器
+docker exec -it containername bash
+分片伪终端和交互
+并且在容器中执行命令bash，命令终端解释器
+
+注意镜像容器可能很多命令都没有
+
+如果不支持bash，
+docker exec -it containername csh
+docker exec -it containername sh
+
+建议
+docker exec -it containername **
+--------------------------
+
+docker exec -it containername bash
+yum install ...安装一些东西
+
+可以保存为一个镜像，
+
+docker commit runningcontainername imagename:v2
+
+对容器的改动持久化到镜像中
+
+commit 把容器保存为镜像，在将镜像创建其他容器
+但不建议，不要动容器，要通过dockerfile
+
+
+
+docker container cp 
+从容器拷贝文件到机器
+或
+从机器拷贝文件到容器中
+docker container cp   localfile.name  containername:/目录root
+docker container exec containername ls /目录root
+
+
+换顺序
+
+重启不会丢失，删除才会
+-------------------
+docker logs containername
+查看错误信息
+
+docker port containername
+查看端口映射
+
+
+docker stats containername 
+查看容器的资源利用情况
+
+docker update container ...
+更新容器资源限制更新
+
+stop
+
+start
+
+rm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
