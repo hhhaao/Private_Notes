@@ -1,0 +1,219 @@
+
+
+
+Stream 使生产者和哪种中间件解耦，因为中间件使用的消息协议不同
+
+Stream 支持RabbitMQ和Kafka
+
+-----------------------
+
+AMQP 是一种协议
+
+RabbitMQ支持多种消息协议,其中一种就是AMQP
+
+AMQP 高级消息队列协议
+
+定义消息客服端和中间件之前的协议，协议脱离具体的开发语言
+
+
+生成者(不同语言)-----AMQP------->RabbitMQ等消息中间件-----AMQP------->消费者(不同语言)
+
+Exchange交换器，决定给哪个消息队列Message Queue
+
+
+消息队列Message Queue会把消息发送给消费者
+
+
+------------------------------------------------
+
+Kafka	Apache
+
+Topic，Topic保持生产者的数据，可能保存在不同的服务器
+键值保持数据
+
+===========================================================
+===========================================================
+
+1.下载Erlang语言，安装文件opt_win64.exe 下一步下一步
+
+2.rabbitmq-server.exe 下一步下一步
+
+Windows服务
+
+查看插件 rabbitmq-plugins list
+
+开启管理插件 rabbitmq-plugins enable rabbitmq_management
+开启了管理插件，就可以通过Web对RabbitMQ进行管理 15672
+
+
+RabbitMQ Server+管理控制台
+
+guest
+guest
+
+
+Connections	连接
+
+Channels	通道（生产者到RabbitMQ之前称为通道）
+
+Exchanges	交换器
+
+Queues		消息队列
+
+
+--------------------------------
+
+
+生产者和消费者都属于客户端
+
+通过AMQP协议通讯
+
+生成者(不同语言)-----AMQP------->RabbitMQ等消息中间件-----AMQP------->消费者(不同语言)
+
+<dependency>
+    <groupId>com.rabbitmq</groupId>
+    <artifactId>amqp-client</artifactId>
+    <version>4.6.0</version>
+</dependency>
+
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>1.7.25</version>
+</dependency>
+
+
+创建消息，使用通道，发布消息
+
+文档
+http://www.rabbitmq.com/api-guide.html
+
+ConnectionFactory factory = new ConnectionFactory();
+factory.setUsername(userName);
+factory.setPassword(password);
+factory.setVirtualHost(virtualHost);
+factory.setHost(hostName);
+factory.setPort(portNumber);
+
+Connection conn = factory.newConnection();
+
+Channel channel = conn.createChannel();
+
+声明交换器
+channel.exchangeDeclare(exchangeName, "direct", true);
+
+不声明交换器，使用默认的交换器
+channel.queueDeclare(queueName, true, false, false, null);
+
+false, false, false ???
+
+
+byte[] messageBodyBytes = "Hello, world!".getBytes();
+channel.basicPublish(exchangeName, routingKey, null, messageBodyBytes);
+routingKey == queuename ??
+
+记得关闭
+channel.close();
+conn.close();
+
+--------------
+
+Web Manage -> Queues 查看一直都在
+
+--------------
+
+消息的消费者
+
+--------------
+
+
+Receive
+
+Send
+
+
+---------------
+
+ConnectionFactory factory = new ConnectionFactory();
+factory.setUsername(userName);
+factory.setPassword(password);
+factory.setVirtualHost(virtualHost);
+factory.setHost(hostName);
+factory.setPort(portNumber);
+
+Connection conn = factory.newConnection();
+
+Channel channel = conn.createChannel();
+
+channel.queueDeclare(queueName, true, false, false, null);
+
+false, false, false ???
+
+
+channel.basicConsume(queueName, autoAck, "myConsumerTag",
+
+     new DefaultConsumer(channel) {
+         @Override
+         public void handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    byte[] body)
+             throws IOException
+         {
+             String routingKey = envelope.getRoutingKey();
+             String contentType = properties.getContentType();
+             long deliveryTag = envelope.getDeliveryTag();
+             // (process the message components here ...)
+             channel.basicAck(deliveryTag, false);
+         }
+     });
+
+
+channel.basicConsume("queueName","DefaultConsumer") ??
+
+
+Main方法阻塞
+
+-------------------
+
+管理控制台--->Quenue--->点击队列名称---->Consumers查看【消费者】
+
+
+
+--------------------
+
+Spring Cloud--Spring Stream 已经对上面的API进行封装
+
+
+生产者自带RouteKey, 交换器根据RouteKey，转发给某个队列
+
+生产者Producer--->交换器Exchange	----绑定Key A--->队列Queue A
+					----绑定Key B--->队列Queue B
+
+
+RabbitMQ有4中交换器
+
+direct根据生产传过来的routingKey是否等于bindingkey，来决定消息发送给哪个队列
+
+
+topic根据传过来的routingkey是否匹配一定的表达式，来决定消息发送给哪个或者那些队列
+
+fanout 件信息发送给交换器知道的所有队列，这种交换器忽略设置的routingkey
+广播
+
+headers根据消息的头部，来决定将消息发送给哪个队列
+
+
+------------
+
+Kafka 依赖 Zookeeper服务管理,要先启动zookeeper
+
+
+
+
+
+
+
+
+
+
