@@ -1,0 +1,18 @@
+前端请求参数最小化
+
+只能用UUID作为唯一标识，代码只能使用uuid查询，不能使用数字id
+
+非查询接口,统一返回结果ResponseResult
+-Bool result
+-String message
+-String message_code
+-String code
+-Bbject data
+
+
+数据库脚本只由一个人维护
+专人维护配置文件，需发邮件
+
+设计密码和敏感信息的表，SQL普通查询接口，不能Select password，敏感信息！
+需需要使用到密码和敏感信息，需另外建查询接口！
+
