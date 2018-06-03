@@ -1,0 +1,17 @@
+docker build -t webapp:1.0.1 .
+
+
+docker run -itd -p 8888:8888 webapp:1.0.1
+
+
+docker ps
+
+docker logs
+
+docker exec -it  xxx  bash  
+
+exit    Ctrl+D
+
+docker stop
+
+docker rm 
