@@ -1,0 +1,31 @@
+docker run  --name hao-nginx  -p 8080:80  -v /opt/hao/html:/usr/share/nginx/html  -d nginx
+
+会为你自动创建/opt/hao/html目录
+
+
+docker exec -it f4cb852988aa bash
+
+curl http://127.0.0.1:8080
+
+
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+f4cb852988aa        nginx               "nginx -g 'daemon of…"   44 minutes ago      Up 44 minutes       0.0.0.0:8080->80/tcp   hao-nginx
+
+=========================================
+
+但阿里ECS默认没有开通8080端口
+【云服务器ECS】-【实例】-【更多】-【网络和安全组】-【安全组配置】-【本实例安全组】
+
+选择一个安全组-【System created security group】-【配置规则】-右上角【添加安全组规则】
+
+端口范围：8080/8080
+
+授权对象：0.0.0.0/0
+
+=========================================
+
+http://39.108.179.156:8080/
+
+200 OK
+
+路径区分大小写
