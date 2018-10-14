@@ -1,0 +1,57 @@
+Docker官方文档
+https://docs.docker.com/install/linux/docker-ce/centos/
+
+阿里教程
+https://help.aliyun.com/document_detail/51853.html?spm=a2c4g.11186623.6.843.375b25293pTMqC
+https://help.aliyun.com/document_detail/60742.html?spm=5176.11065259.1996646101.searchclickresult.247227ddP2yW0g
+https://yq.aliyun.com/articles/110806?spm=5176.8351553.0.0.6a721991mqz9tN
+----------------------------------------------------------------------------
+
+# step 1: 安装必要的一些系统工具
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+# Step 2: 添加软件源信息
+sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+# Step 3: 更新并安装Docker-CE
+sudo yum makecache fast
+sudo yum -y install docker-ce
+
+# Step 4: 开启Docker服务
+sudo service docker start
+
+# Step 5: 校验
+docker version
+
+
+------国外的镜像库很慢，要 使用加速器可以提升获取Docker官方镜像的速度---------
+
+【产品】-【开发者服务】-【容器镜像服务】-【管理控制台】-【镜像加速器】
+
+配置镜像加速器(针对Docker客户端版本大于 1.10.0 的用户)
+
+您可以通过修改daemon配置文件/etc/docker/daemon.json(文件不存在的，自己加)来使用加速器
+
+sudo mkdir -p /etc/docker
+
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://8usr4vbl.mirror.aliyuncs.com"]
+}
+EOF
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart docker
+
+docker info
+Registry Mirrors:
+ https://8usr4vbl.mirror.aliyuncs.com/
+
+--------------------------------------------------------------------------------
+
+测试
+
+docker pull java
+
+docker images
