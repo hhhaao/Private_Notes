@@ -53,5 +53,6 @@ Registry Mirrors:
 ≤‚ ‘
 
 docker pull java
+docker pull nginx
 
 docker images
