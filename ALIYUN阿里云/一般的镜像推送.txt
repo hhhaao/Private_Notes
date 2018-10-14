@@ -1,0 +1,25 @@
+阿里的【镜像仓储】地址有点奇怪，用不了镜像名称
+
+registry.cn-shenzhen.aliyuncs.com/liuhao/dev_docker
+
+难道阿里的一个仓储（REPOSITORY）就只存一个镜像？？？？这个原理
+
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              be1f31be9a87        11 days ago         109MB
+hello-world         latest              4ab4c602aa5e        5 weeks ago         1.84kB
+java                latest              d23bdf5b1b1b        21 months ago       643MB
+
+
+registry.cn-shenzhen.aliyuncs.com/liuhao/nginx  每个镜像名称单独的路径
+registry.cn-shenzhen.aliyuncs.com/liuhao 相当于一般的IP:Port
+
+==========================================================================================
+但一般情况都是IP加端口
+
+192.168.1.1:5000
+
+docker tag imagename:version  192.168.1.1:5000/pushimagename:pushversion
+docker push 192.168.1.1:5000/pushimagename:pushversion
+
+拉取
+docker pull 192.168.1.1:5000/pushimagename:pushversion

@@ -1,4 +1,8 @@
+docker pull hello-world
+测试镜像
+
 docker pull registry
+docker pull hello-world
 私人镜像库搭建
 
 Registry: https://index.docker.io/v1/
@@ -10,7 +14,7 @@ Registry Mirrors:
  https://8usr4vbl.mirror.aliyuncs.com/
 
 
-如果是非HTTPS，需Insecure Registries新增信任
+如果是非HTTPS，需Insecure Registries新增信任（拉去Pull和推送Push都需要）
 
 好像也是修改这个
 /etc/docker/daemon.json

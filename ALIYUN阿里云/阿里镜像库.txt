@@ -1,3 +1,10 @@
+修正【dev_docker】其实不是【仓储】-【REPOSITORY】的概念，其实是我们理解中镜像的概念；
+# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              be1f31be9a87        11 days ago         109MB
+hello-world         latest              4ab4c602aa5e        5 weeks ago         1.84kB
+java                latest              d23bdf5b1b1b        21 months ago       643MB
+
 公网地址 registry.cn-shenzhen.aliyuncs.com/liuhao/dev_docker
 
 专有网络 registry-vpc.cn-shenzhen.aliyuncs.com/liuhao/dev_docker
