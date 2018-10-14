@@ -1,0 +1,60 @@
+server:
+  port: 8888
+
+默认端口8888
+
+@EnableConfigServer
+
+Main 启动类型注解@EnableConfigServer
+
+服务器端
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+设置访问密码需要
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+security.user.name: abc
+security.user.password: 123
+
+从本地文件系统读取
+spring.profiles.active: native
+
+本地读取的路径
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: file:///D:/dlcache/
+
+
+可以从Git、Svn读取
+
+searchLocations: file:///D:/dlcache/  还可以使用占位符
+
+#http://127.0.0.1:8888/**/** 	OK,Bug Bad
+#http://127.0.0.1:8888/application.name/profile/label	OK,Good
+
+#avmoo-web-dev -> application-dev -> avmoo-web -> application -> error
+
+
+
+
+

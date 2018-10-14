@@ -1,0 +1,53 @@
+
+spring.cloud.config.uri=http://127.0.0.1:8888
+
+spring.cloud.config.profile=dev
+
+这2个配置必须放bootstrap.yml，不知道为什么
+#spring.cloud.config.username & spring.cloud.config.password must in bootstrap.yml
+spring.cloud.config.username: abc
+spring.cloud.config.password: 123
+
+
+客户端
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+加了代表Spring Cloud应用，需加 bootstrap.yml 配置文件
+
+Spring Cloud应用会根据bootstrap.yml创建ApplicationContext Parenet，父上下文
+
+
+相当于是ApplicationContext的父类
+
+------------------------------------------------------------------------
+有个现象:
+普通的Spring Boot项目@Autowird AplicationContext 为 null
+但加了Spring Cloud + Config 可以轻松获取到AplicationContext
+
+-----------------------------
+
+@Autowired
+private ApplicationContext ctx;
+@Autowired
+private Environment env;
+@Autowired
+private WebApplicationContext webCtx;
+
+这个现象又不存在了，可以请求获取到ApplicationContext
+
+----------------------------------------------------------------------

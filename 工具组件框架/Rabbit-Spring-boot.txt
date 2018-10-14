@@ -1,0 +1,7 @@
+ @Bean
+    public Queue hello() {
+        return new Queue("hello");
+    }
+
+Sender和Revecier都要声明 Queue，
+不然Revecier启动的时候RabbitMQ没有Queue("hello")队列，报错

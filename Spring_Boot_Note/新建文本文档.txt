@@ -1,0 +1,45 @@
+
+如果没加spring-cloud-starter-config，ApplicationContext==null，mybatis正常启动
+
+加了 ApplicationContext!=null, mybatis报错
+
+bootstrap.yml 引导,父上下文
+
+application.yml 子上下文，这个会覆盖，优先级>bootstrap.yml
+
+
+	@Autowired
+	private ApplicationContext ctx;
+	
+	@Autowired
+	private WebApplicationContext webCtx;
+
+		System.out.println(ctx);
+		System.out.println(webCtx);
+		System.out.println(webCtx.getParent());
+
+org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@106bb1b4: startup date [Thu Mar 29 23:46:57 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@546659d3
+org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@106bb1b4: startup date [Thu Mar 29 23:46:57 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@546659d3
+org.springframework.context.annotation.AnnotationConfigApplicationContext@546659d3: startup date [Thu Mar 29 23:46:56 CST 2018]; root of context hierarchy
+
+Fetching config from server at: http://localhost:8888
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+<spring-cloud.version>Edgware.SR2</spring-cloud.version>

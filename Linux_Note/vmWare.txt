@@ -1,0 +1,14 @@
+https://www.vmware.com/
+
+
+Workstation Pro
+
+https://my.vmware.com/en/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/14_0
+https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/12_0
+
+
+https://download3.vmware.com/software/wkst/file/VMware-workstation-full-12.5.9-7535481.exe
+http://download3.vmware.com/software/wkst/file/VMware-workstation-full-14.1.1-7528167.exe
+
+------------------------------------------------------------------------------------------------
+https://www.centos.org/download/

@@ -1,0 +1,22 @@
+
+
+服务注册与发现
+1.Netflix Eureka(推荐)
+2.Consul
+3.Zookeeper
+
+
+
+分布式链路监控
+Spring Cloud Sleuth		埋点和发送
+Zipkin 				负责收集和界面展示
+
+
+
+消息组件
+Spring Cloud Stream	消息组件,基础框架（发布订阅，分组消费，消息分片，第三方集成【RabbitMQ|Apache Kafka】
+Spring Cloud Bus 	消息组件,基于Spring Cloud Stream,提供服务间的事件通讯,比如刷新配置
+
+
+
+

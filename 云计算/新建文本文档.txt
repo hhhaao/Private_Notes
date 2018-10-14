@@ -1,0 +1,1 @@
+Kubernetes和istio的能力，将所有的服务能力分布式化
