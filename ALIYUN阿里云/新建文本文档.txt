@@ -1,0 +1,13 @@
+
+============================拷贝===============================================
+[root@wantToLang-Web mysql]# cp -r  /opt/hao/mysql/data /opt/mysqlbackup
+[root@wantToLang-Web mysql]#
+[root@wantToLang-Web mysql]# cp -r  /opt/hao/mysql/data/. /opt/mysqlbbbuuu2
+
+效果一样的，会自动创建文件夹
+
+
+
+===============删除======================
+
+rm -rf /dir 强制递归删除目录
