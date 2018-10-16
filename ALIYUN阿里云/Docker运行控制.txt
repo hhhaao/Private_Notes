@@ -1,0 +1,21 @@
+=========================================================================
+[root@wantToLang-Web ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+eff4af3042c9        mysql               "docker-entrypoint.s¡­"   20 hours ago        Up 20 hours         0.0.0.0:3306->3306/tcp, 33060/tcp   hao-mysql
+f4cb852988aa        nginx               "nginx -g 'daemon of¡­"   26 hours ago        Up 26 hours         0.0.0.0:8080->80/tcp                hao-nginx
+[root@wantToLang-Web ~]# docker rm eff4af3042c9
+Error response from daemon: You cannot remove a running container eff4af3042c9ce885fd3332bfafee8b739b5efa1e7dd5e9595e672fa9ebb57ba. Stop the container before attempting removal or force remove
+[root@wantToLang-Web ~]# docker stop eff4af3042c9
+eff4af3042c9
+[root@wantToLang-Web ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+f4cb852988aa        nginx               "nginx -g 'daemon of¡­"   26 hours ago        Up 26 hours         0.0.0.0:8080->80/tcp   hao-nginx
+[root@wantToLang-Web ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                  NAMES
+eff4af3042c9        mysql               "docker-entrypoint.s¡­"   20 hours ago        Exited (0) 13 seconds ago                          hao-mysql
+f4cb852988aa        nginx               "nginx -g 'daemon of¡­"   26 hours ago        Up 26 hours                 0.0.0.0:8080->80/tcp   hao-nginx
+[root@wantToLang-Web ~]# docker rm eff4af3042c9
+eff4af3042c9
+[root@wantToLang-Web ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+f4cb852988aa        nginx               "nginx -g 'daemon of¡­"   26 hours ago        Up 26 hours         0.0.0.0:8080->80/tcp   hao-nginx

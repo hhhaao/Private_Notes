@@ -1,6 +1,6 @@
 docker pull mysql
 
-docker run  --name hao-mysql  -p 3306:3306  -v /opt/hao/mysql/data:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=123456  -d mysql
+docker run  --name hao-mysql  -p 3306:3306  -v /opt/hao/mysql/data:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=123456  -d mysql --default-authentication-plugin=mysql_native_password
 
 测试
 docker exec -it hao-mysql bash
@@ -34,3 +34,34 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '123456';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456';
 
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.12.5' IDENTIFIED BY '123456';
+
+
+从MySQL 8.0版本开始默认密码是caching_sha2_password而不是mysql_native_password，Navicat不支持
+
+--------------------------------------------------
+SELECT `Host`,`User`,`plugin`,`authentication_string` FROM mysql.user;
+--------------------------------------------------
+
+
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+
+
+--------------------------------------------------
+
+mysql -h 39.108.179.156 -u root -p
+
+
+--------------------------------------------------
+
+加了
+--default-authentication-plugin=mysql_native_password
+注意，如果之前已经安装过一次mysql，记得把目录删除，不然，之前的文件存在可能不会被覆盖， 配置不生效
+
+rm -rf /dir 强制递归删除目录
+
+删除目录之后，再安装就好了
+
+---------------------------------------------------
+
+如果数据文件会怎么样了？
+
